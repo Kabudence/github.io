@@ -1,0 +1,34 @@
+<svg viewBox="0 0 500 100" xmlns="http://www.w3.org/2000/svg">
+  <text x="50%" y="50%" font-size="24" text-anchor="middle">
+    <tspan id="text"></tspan>
+  </text>
+  <script>
+    const textArray = ["HI, MY NAME IS KABUDENCE 👋", "WELCOME TO MY PROFILE"];
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    
+    function typeEffect() {
+      const textElement = document.getElementById("text");
+      const currentText = textArray[textIndex];
+
+      if (isDeleting) {
+        textElement.textContent = currentText.substring(0, charIndex--);
+      } else {
+        textElement.textContent = currentText.substring(0, charIndex++);
+      }
+
+      if (!isDeleting && charIndex === currentText.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 1000);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % textArray.length;
+        setTimeout(typeEffect, 500);
+      } else {
+        setTimeout(typeEffect, isDeleting ? 100 : 150);
+      }
+    }
+    typeEffect();
+  </script>
+</svg>
